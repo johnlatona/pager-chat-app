@@ -1,10 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { UserProvider, ChatProvider } from './context';
+import LoginCard from './components/LoginCard';
+import ChatWindow from './components/ChatWindow';
 
 function App() {
   return (
-    <div></div>
+    <UserProvider>
+      <ChatProvider>
+        <div className="container">
+          <LoginCard/>
+          {/* <ChatWindow/> */}
+        </div>
+      </ChatProvider>
+    </UserProvider>
   );
 }
 
