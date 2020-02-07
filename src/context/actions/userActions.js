@@ -1,15 +1,16 @@
-import { SET_USERNAME_TO_STATE, SET_IS_LOGGED_IN_TO_STATE } from '../constants';
+import io from 'socket.io-client';
+import { SET_SOCKET_CONNECTION } from '../constants';
 
-export const setUsernameToState = (username, dispatch) => {
-  dispatch({
-    type: SET_USERNAME_TO_STATE,
-    username,
-  });
-};
+export const getSocketConnection = async (username, dispatch, socket) => {
+  console.log("running getSocketConnection")
+  socket = await io(`https://pager-hiring.herokuapp.com/?username=${username}`);
+  setSocket(socket, dispatch);
+}
 
-export const setIsLoggedIn = (isLoggedIn, dispatch) => {
+const setSocket = (socket, dispatch) => {
+  console.log('running set socket')
   dispatch({
-    type: SET_IS_LOGGED_IN_TO_STATE,
-    isLoggedIn,
+    type: SET_SOCKET_CONNECTION,
+    socket,
   });
-};
+}

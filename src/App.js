@@ -9,7 +9,7 @@ function App() {
       <ChatProvider>
         <div className="container">
           <LoginCard/>
-          {/* <ChatWindow/> */}
+          <ChatWindow/>
         </div>
       </ChatProvider>
     </UserProvider>

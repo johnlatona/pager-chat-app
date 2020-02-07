@@ -1,11 +1,12 @@
 import defaultState from '../defaultState';
-import { SET_MESSAGES, SET_TYPING } from '../constants';
+import { SET_MESSAGE, SET_TYPING } from '../constants';
 
 const chatReducer = (state = defaultState.chat, action) => {
   switch(action.type) {
-    case SET_MESSAGES: {
-      const { messages } = action;
-      return { ...state, messages, };
+    case SET_MESSAGE: {
+      console.log("MESSAGE IN REDUCER", action.message)
+      const { message } = action;
+      return { ...state, messages: [ ...state.messages, message, ]};
     }
     case SET_TYPING: {
       const { isTyping } = action; 
