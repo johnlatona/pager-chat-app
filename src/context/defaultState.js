@@ -1,8 +1,10 @@
 const defaultState = {
+  global: {
+    socket: null,
+  },
   user: {
     username: '',
     isLoggedIn: false,
-    socket: null,
   },
   chat: {
     messages: [],

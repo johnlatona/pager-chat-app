@@ -1,3 +1,2 @@
 export const SET_MESSAGE = 'SET_MESSAGE';
-export const SET_TYPING = 'SET_TYPING';
 export const SET_SOCKET_CONNECTION = 'SET_SOCKET_CONNECTION';
