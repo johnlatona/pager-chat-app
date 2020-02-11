@@ -1,9 +1,6 @@
 import React, { createContext, useReducer } from 'react';
-import reducers from './reducers';
+import { chatReducer, userReducer } from './reducers';
 import defaultState from './defaultState';
-
-// reducers
-const { chatReducer, userReducer } = reducers;
 
 // user contexts
 export const UserState = createContext();

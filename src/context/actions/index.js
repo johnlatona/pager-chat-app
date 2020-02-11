@@ -1,7 +1,2 @@
-import chatActions from './chatActions';
-import userActions from './userActions';
-
-export default {
-  chatActions, 
-  userActions,
-};
+export { default as chatActions } from './chatActions';
+export { default as userActions } from './userActions';

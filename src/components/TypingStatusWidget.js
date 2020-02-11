@@ -1,36 +1,41 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { UserState } from '../context';
+import './styles/TypingStatusWidget.css'
 
 const TypingStatusWidget = () => {
 
   const userState = useContext(UserState);
   const { socket } = userState;
-  const [numTypers, setNumTypers] = useState(0);
-  const [personTyping, setPersonTyping] = useState('');
+  const [peopleTyping, setPeopleTyping] = useState([]);
   
   useEffect(() => {
     if (socket) {
+      socket.emit()
       socket.on('is-typing', typers => {
-        console.log("TYPERS", typers);
         for (let typer in typers) {
           if (typers[typer]) {
-            console.log("TYPER IS TRUE", typer)
-            setNumTypers(numTypers + 1);
-            setPersonTyping(typer);
+            setPeopleTyping(prevState => [ ...prevState, typer]);
+          } else {
+            removePerson(typer);
           }
         }
       });
     }
-  }, [socket])
+  }, [socket]);
 
-  console.log("NUMTYPERS NOW", numTypers)
+  const removePerson = person => {
+    const indexOfPerson = peopleTyping.indexOf(person);
+    peopleTyping.splice(indexOfPerson, 1);
+    setPeopleTyping(peopleTyping);
+  }
+
   return (
     <div className="is-typing-container">
       {
-        (numTypers === 1) ?
-          <p className="typing-message">{personTyping} is typing...</p>
+        (peopleTyping.length === 1) ?
+          <p className="typing-message">{peopleTyping[0]} is typing...</p>
           :
-        (numTypers > 1) ?
+        (peopleTyping.length > 1) ?
           <p className="typing-message">People are typing...</p>
           : null
       }

@@ -1,7 +1,2 @@
-import chatReducer from './chatReducer';
-import userReducer from './userReducer';
-
-export default {
-  chatReducer, 
-  userReducer,
-};
+export { default as chatReducer } from './chatReducer';
+export { default as userReducer } from './userReducer';

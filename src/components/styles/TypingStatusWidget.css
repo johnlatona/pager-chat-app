@@ -1,0 +1,9 @@
+.is-typing-container {
+  height: 12px;
+  margin-top: 8px;
+}
+
+.typing-message {
+  color: var(--text-gray);
+  font-size: 12px;
+}

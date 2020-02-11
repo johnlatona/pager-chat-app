@@ -3,6 +3,7 @@ import { ChatState, UserState, ChatDispatch } from '../context';
 import { setMessage, fetchGif } from '../context/actions/chatActions';
 import Message from './Message';
 import TypingStatusWidget from './TypingStatusWidget';
+import './styles/ChatWindow.css';
 
 const ChatWindow = () => {
   const chatState = useContext(ChatState);
@@ -23,14 +24,6 @@ const ChatWindow = () => {
         const message = err.message || 'Unable to listen to socket connection';
         console.error(message, err, err.stack);
       }
-      textInput.current.addEventListener('onkeyup', (e) => {
-        e.preventDefault();
-        socket.emit('typing', false);
-      });
-      textInput.current.addEventListener('onkeydown', (e) => {
-        e.preventDefault();
-        socket.emit('typing', true);
-      });
     }
   }, [socket]);
 
@@ -54,11 +47,10 @@ const ChatWindow = () => {
       socket.emit('text-message', message);
     }
   }
-
+  console.log("MESSAGES", messages);
   return (
     socket ? 
-    <div className="chat-container">
-    <p>CHATS</p>
+    <div className="card chat-container">
       <div className="messages">
         {messages.map((message, index) => {
           const { username } = message;
@@ -69,18 +61,32 @@ const ChatWindow = () => {
             )
           })}
       </div>
-      <div className="chat-input">
-          <form>
+      <div className="chat-input-container">
+          <form className="input-form">
             <input
+              className="chat-input"
+              placeholder="Message"
               value={messageInput}
               onChange={(e) => {
                 socket.emit('typing', true);
                 setMessageInput(e.target.value)
               }}
+              onFocus={(e) => {
+                if (e.target.value.length) {
+                  socket.emit('typing', true);
+                } else {
+                  socket.emit('typing', false);
+                }
+              }}
+              onBlur={() => {
+                socket.emit('typing', false);
+              }}
               ref={textInput}
             >
             </input>
-            <button onClick={(e) => {
+            <button
+              className="send-button" 
+              onClick={(e) => {
                 e.preventDefault();
                 socket.emit('typing', false);
                 handleMessageSubmit(messageInput);

@@ -12,7 +12,6 @@ export const fetchGif = async query => {
   const apiKey = process.env.APIKEY || require('../../secrets').apiKey;
   try {
     const gif = await axios.get(`https://api.giphy.com/v1/gifs/search?&q=${query}&api_key=${apiKey}&limit=1`);
-    console.log("GIF OBJECT", gif);
     return gif;
   } catch(err) {
     const message = err.message || "Invalid gif request";

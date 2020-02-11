@@ -1,8 +1,47 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
+html {
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  margin: 0;
+}
+
+body {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  --border-gray: #d9d9d9;
+  --text-gray: #a1a1a1;
+  --orange: #FF982B;
+  --dark-orange: #EB8C28;
+  --box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1), 0 3px 17px 0 rgba(0,0,0,0.1);
+}
+
+h1, p, input, button, input::placeholder {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  margin-bottom: 50px;
+}
+
+.card {
+  box-shadow: var(--box-shadow);
+}
+
+/* .App {
+  text-align: center;
+} */
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +74,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

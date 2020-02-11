@@ -8,7 +8,7 @@ const defaultState = {
   },
   chat: {
     messages: [],
-    isTyping: [],
+    numTypers: 0,
   },
 };
 

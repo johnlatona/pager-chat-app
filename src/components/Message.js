@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import './styles/Message.css';
 
 const Message = (props) => {
   const { message, username } = props;
-  const { type  } = message;
-  const date = new Date(message.time);
-  const time = date.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  });
+  const { type, text, time, url, alt } = message;
   return (
     <div className="message-container">
       <div className="avatar-container">
@@ -19,17 +14,32 @@ const Message = (props) => {
           <p className="username">{username}</p>
           <p className="time">{time}</p>
         </div>
+        {
+          (type === 'text') ?
+            <div className="message">
+              {
+                (Array.isArray(text)) ?
+                  text.map((msg, index) => {
+                    return <p key={index} className="message-text">{msg}</p>
+                  })
+                  :
+                  <p className="message-text">{text}</p>
+              }
+            </div>
+            :
+            <div className="message">
+              {
+                (Array.isArray(url)) ?
+                url.map((msg, index) => {
+                  console.log("URL", msg)
+                  return <img key={index} className="gif" src={msg} alt={msg}/>
+                })
+                :
+                <img className="gif" src={url} alt={alt}/>
+              }
+            </div>
+        }
       </div>
-      {
-        (type === 'text') ?
-          <div className="message-text">
-            <p>{message.text}</p>
-          </div>
-          :
-          <div className="message-image">
-            <img className="gif" src={message.url} alt={message.alt}/>
-          </div>
-      }
     </div>
   )
 }
