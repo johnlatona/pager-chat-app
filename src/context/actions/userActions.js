@@ -4,6 +4,9 @@ import { SET_SOCKET_CONNECTION } from '../constants';
 export const getSocketConnection = async (username, dispatch) => {
   try {
     const socket = await io(`https://pager-hiring.herokuapp.com/?username=${username}`);
+    socket.on('user-disconnected', () => {
+      socket.emit('is-typing', false);
+    });
     setSocket(socket, dispatch);
   } catch(err) {
     const message = err.message || 'Unable to connect to socket.io server';

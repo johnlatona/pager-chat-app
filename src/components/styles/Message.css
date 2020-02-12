@@ -29,6 +29,9 @@
 
 .message-text {
   font-size: 14px;
+}
+
+.message-text, .gif {
   margin-top: 4px;
 }
 

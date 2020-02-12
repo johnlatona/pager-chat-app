@@ -29,6 +29,10 @@ h1, p, input, button, input::placeholder {
   font-family: Arial, sans-serif;
 }
 
+img {
+  display: inline-block;
+}
+
 .container {
   margin-bottom: 50px;
 }

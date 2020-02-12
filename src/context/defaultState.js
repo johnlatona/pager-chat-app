@@ -4,11 +4,10 @@ const defaultState = {
   },
   user: {
     username: '',
-    isLoggedIn: false,
   },
   chat: {
     messages: [],
-    numTypers: 0,
+    peopleTyping: [],
   },
 };
 

@@ -1,36 +1,41 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { UserState } from '../context';
-import './styles/TypingStatusWidget.css'
+import React, { useEffect, useContext } from 'react';
+import { UserState, ChatState, ChatDispatch } from '../context';
+import { addPersonTyping, removePersonTyping } from '../context/actions/chatActions';
+import './styles/TypingStatusWidget.css';
 
 const TypingStatusWidget = () => {
 
   const userState = useContext(UserState);
+  const chatState = useContext(ChatState);
+  const chatDispatch = useContext(ChatDispatch);
   const { socket } = userState;
-  const [peopleTyping, setPeopleTyping] = useState([]);
+
+  const { peopleTyping } = chatState;
   
   useEffect(() => {
     if (socket) {
-      socket.emit()
       socket.on('is-typing', typers => {
         for (let typer in typers) {
           if (typers[typer]) {
-            setPeopleTyping(prevState => [ ...prevState, typer]);
+            addPersonTyping(typer, chatDispatch);
           } else {
-            removePerson(typer);
+            if (peopleTyping.indexOf(typer) > -1) {
+              removePersonTyping(typer, chatDispatch);
+            }
           }
         }
       });
+      return () => {
+        socket.off('is-typing');
+      }
     }
-  }, [socket]);
-
-  const removePerson = person => {
-    const indexOfPerson = peopleTyping.indexOf(person);
-    peopleTyping.splice(indexOfPerson, 1);
-    setPeopleTyping(peopleTyping);
-  }
+  }, [socket, peopleTyping]);
 
   return (
     <div className="is-typing-container">
+    {
+
+    }
       {
         (peopleTyping.length === 1) ?
           <p className="typing-message">{peopleTyping[0]} is typing...</p>

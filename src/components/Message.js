@@ -7,7 +7,7 @@ const Message = (props) => {
   return (
     <div className="message-container">
       <div className="avatar-container">
-        <img className="avatar" src={`https://ui-avatars.com/api/?name=${username}&background=EEEEEE&color=000`}/>
+        <img className="avatar" alt='user avatar' src={`https://ui-avatars.com/api/?name=${username}&background=EEEEEE&color=000`}/>
       </div>
       <div className="message-contents">
         <div className="message-header">
@@ -28,15 +28,7 @@ const Message = (props) => {
             </div>
             :
             <div className="message">
-              {
-                (Array.isArray(url)) ?
-                url.map((msg, index) => {
-                  console.log("URL", msg)
-                  return <img key={index} className="gif" src={msg} alt={msg}/>
-                })
-                :
                 <img className="gif" src={url} alt={alt}/>
-              }
             </div>
         }
       </div>

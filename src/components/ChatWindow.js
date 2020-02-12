@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { ChatState, UserState, ChatDispatch } from '../context';
 import { setMessage, fetchGif } from '../context/actions/chatActions';
 import Message from './Message';
@@ -13,6 +13,7 @@ const ChatWindow = () => {
   const { messages } = chatState;
   const [messageInput, setMessageInput] = useState('');
   const textInput = useRef();
+  const messagesContainer = useRef();
 
   useEffect(() => {
     if (socket) {
@@ -24,8 +25,19 @@ const ChatWindow = () => {
         const message = err.message || 'Unable to listen to socket connection';
         console.error(message, err, err.stack);
       }
+      textInput.current.focus();
     }
   }, [socket]);
+
+  useLayoutEffect(() => {
+    const elem = messagesContainer.current;
+    if (elem) {
+      const scroll = elem.scrollTop + elem.clientHeight === elem.scrollHeight;
+      if (!scroll) {
+        elem.scrollTop = elem.scrollHeight;
+      }
+    }
+  });
 
   const handleMessageSubmit = async message => {
     setMessageInput('');
@@ -33,10 +45,10 @@ const ChatWindow = () => {
       const query = message.substring(5);
       try {
         const response = await fetchGif(query);
-        if (response.data && response.data.data && response.data.data.length) {
+        if (response.data && response.data.length) {
           socket.emit('image-message', {
-            url: response.data.data[0].images.original.url,
-            alt: response.data.data[0].title,
+            url: response.data[0].images.original.url,
+            alt: response.data[0].title,
           });
         }
       } catch(err) {
@@ -47,11 +59,10 @@ const ChatWindow = () => {
       socket.emit('text-message', message);
     }
   }
-  console.log("MESSAGES", messages);
   return (
     socket ? 
     <div className="card chat-container">
-      <div className="messages">
+      <div className="messages" ref={messagesContainer}>
         {messages.map((message, index) => {
           const { username } = message;
             return (
@@ -68,7 +79,11 @@ const ChatWindow = () => {
               placeholder="Message"
               value={messageInput}
               onChange={(e) => {
-                socket.emit('typing', true);
+                if (e.target.value.length === 1) {
+                  socket.emit('typing', true);
+                } else if (e.target.value.length === 0) {
+                  socket.emit('typing', false);
+                }
                 setMessageInput(e.target.value)
               }}
               onFocus={(e) => {
