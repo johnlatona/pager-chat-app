@@ -21,6 +21,11 @@
   flex-direction: column;
   width: 100%;
   margin-left: 15px;
+  overflow-y: scroll;
+}
+
+.message-contents::-webkit-scrollbar {
+  display: none;
 }
 
 .message-header {
