@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
-import { UserState, ChatState, ChatDispatch } from '../context';
-import { addPersonTyping, removePersonTyping } from '../context/actions/chatActions';
-import './styles/TypingStatusWidget.css';
+import { UserState, ChatState, ChatDispatch } from '../../context';
+import { addPersonTyping, removePersonTyping } from '../../context/actions/chatActions';
+import './TypingStatusWidget.css';
 
 const TypingStatusWidget = () => {
 

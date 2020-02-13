@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserProvider, ChatProvider } from './context';
-import LoginCard from './components/LoginCard';
-import ChatWindow from './components/ChatWindow';
+import LoginCard from './components/LoginCard/LoginCard';
+import { ChatWindow } from './components/ChatWindow';
 import './App.css';
 
 function App() {

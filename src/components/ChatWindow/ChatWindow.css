@@ -1,5 +1,5 @@
 .chat-container {
-  margin: 15% auto;
+  margin: 5vh auto;
   border: 1px solid var(--border-gray);
   border-radius: 10px;
   width: 600px;
@@ -15,8 +15,14 @@
   padding: 0 10px;
 }
 
+.chat-input:focus {
+  outline: none !important;
+  border: 2px solid var(--orange);
+  border-radius: 10px 0 0 10px;
+}
+
 .messages {
-  height: 700px;
+  height: 70vh;
   position: relative;
   overflow-y: auto;
 }
@@ -45,4 +51,16 @@
   font-size: 14px;
   color: var(--text-gray);
   padding: 0 10px;
+  transition: color 0.3s;
+}
+
+.send-button:focus {
+  outline: none !important;
+  border: 2px solid var(--orange);
+  border-radius: 0 10px 10px 0;
+  color: var(--orange);
+}
+
+.send-button:hover {
+  color: var(--orange);
 }

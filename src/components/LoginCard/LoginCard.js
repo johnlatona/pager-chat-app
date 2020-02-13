@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { getSocketConnection } from '../context/actions/userActions';
-import { UserDispatch, UserState } from '../context';
-import './styles/LoginCard.css';
+import { getSocketConnection } from '../../context/actions/userActions';
+import { UserDispatch, UserState } from '../../context';
+import { Button } from '../Button';
+import './LoginCard.css';
 
 
 const LoginCard = () => {
@@ -29,7 +30,18 @@ const LoginCard = () => {
               />
             </div>
           <div className="next-button-container">
-            <button 
+            <Button 
+              appliedClass="login-next-button"
+              onClick={(e) => {
+                e.preventDefault();
+                  if (username.length) {
+                    getSocketConnection(username, dispatch);
+                  }
+                }
+              }
+              text='Next'
+            />
+            {/* <button 
               className="login-next-button"
               onClick={(e) => {
                 e.preventDefault();
@@ -39,7 +51,7 @@ const LoginCard = () => {
               }}
             >
               Next
-            </button>
+            </button> */}
           </div>
         </form>
       </div>

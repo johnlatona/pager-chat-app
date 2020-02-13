@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { ChatState, UserState, ChatDispatch } from '../context';
-import { setMessage, fetchGif } from '../context/actions/chatActions';
-import Message from './Message';
-import TypingStatusWidget from './TypingStatusWidget';
-import './styles/ChatWindow.css';
+import { ChatState, UserState, ChatDispatch } from '../../context';
+import { setMessage, fetchGif } from '../../context/actions/chatActions';
+import { Message } from '../Message';
+import { TypingStatusWidget } from '../TypingStatusWidget';
+import { Button } from '../Button';
+import './ChatWindow.css';
 
 const ChatWindow = () => {
   const chatState = useContext(ChatState);
@@ -99,13 +100,22 @@ const ChatWindow = () => {
               ref={textInput}
             >
             </input>
-            <button
+            <Button 
+              appliedClass="send-button"
+              onClick={(e) => {
+                e.preventDefault();
+                socket.emit('typing', false);
+                handleMessageSubmit(messageInput);
+              }}
+              text='Send'
+            />
+            {/* <button
               className="send-button" 
               onClick={(e) => {
                 e.preventDefault();
                 socket.emit('typing', false);
                 handleMessageSubmit(messageInput);
-              }}>Send</button>
+              }}>Send</button> */}
           </form>
       </div>
       <div className="typing-status">
