@@ -41,17 +41,6 @@ const LoginCard = () => {
               }
               text='Next'
             />
-            {/* <button 
-              className="login-next-button"
-              onClick={(e) => {
-                e.preventDefault();
-                if (username.length) {
-                  getSocketConnection(username, dispatch);
-                }
-              }}
-            >
-              Next
-            </button> */}
           </div>
         </form>
       </div>

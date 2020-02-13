@@ -109,13 +109,6 @@ const ChatWindow = () => {
               }}
               text='Send'
             />
-            {/* <button
-              className="send-button" 
-              onClick={(e) => {
-                e.preventDefault();
-                socket.emit('typing', false);
-                handleMessageSubmit(messageInput);
-              }}>Send</button> */}
           </form>
       </div>
       <div className="typing-status">
